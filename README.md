@@ -15,7 +15,7 @@ Complete all of the 'TODO' portions of the code. The finished application should
 - DTOs are used for requests and responses
 
 ## Stretch goals
-- Request validation
-- Custom exception handling
+- Request validation --> done
+- Custom exception handling --> done
 - Searching by partial title
 - Add 'borrow' and 'return' endpoints along with the new 'borrowedStatus' field to the Book entity
