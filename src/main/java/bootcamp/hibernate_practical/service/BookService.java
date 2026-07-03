@@ -4,6 +4,7 @@ import bootcamp.hibernate_practical.dto.BookResponse;
 import bootcamp.hibernate_practical.dto.CreateBookRequest;
 import bootcamp.hibernate_practical.dto.UpdateBookRequest;
 import bootcamp.hibernate_practical.entity.Book;
+import bootcamp.hibernate_practical.exception.BookNotFoundException;
 import bootcamp.hibernate_practical.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
@@ -38,13 +39,13 @@ public class BookService {
 
     public BookResponse getBookById(Long id) {
 
-        Book book = bookRepository.findById(id).orElseThrow(()->new RuntimeException("no book found with id: " + id));
+        Book book = bookRepository.findById(id).orElseThrow(()->new BookNotFoundException(id));
         return mapToResponse(book);
     }
 
     public BookResponse updateBook(Long id, UpdateBookRequest request) {
 
-        Book book = bookRepository.findById(id).orElseThrow(()->new RuntimeException("no book no found with id: " + id));
+        Book book = bookRepository.findById(id).orElseThrow(()->new BookNotFoundException(id));
         book.setTitle(request.getTitle());
         book.setAuthor(request.getAuthor());
         book.setGenre(request.getGenre());
@@ -58,18 +59,18 @@ public class BookService {
 
     public void deleteBook(Long id) {
 
-        bookRepository.findById(id).orElseThrow(()->new RuntimeException("no book found with id: " + id));
+        bookRepository.findById(id).orElseThrow(()->new BookNotFoundException(id));
         bookRepository.deleteById(id);
     }
 
     public List<BookResponse> findByAuthor(String author) {
 
-        return bookRepository.findByAuthor(author).stream().map(this::mapToResponse).collect(Collectors.toList());
+        return bookRepository.findByAuthor(author).stream().map(this::mapToResponse).toList();
     }
 
     public List<BookResponse> findAvailableBooks(){
 
-        return bookRepository.findByAvailableTrue().stream().map(this::mapToResponse).collect(Collectors.toList());
+        return bookRepository.findByAvailableTrue().stream().map(this::mapToResponse).toList();
     }
 
     private BookResponse mapToResponse(Book book) {

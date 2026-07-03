@@ -1,0 +1,32 @@
+
+
+@baseUrl = http://localhost:8080/api/books
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "title": "The Picture of Dorian Gray",
+  "author": "Oscar Wilde",
+  "genre": "Gothic Fiction",
+  "publicationYear": 1980
+}
+
+
+### Validation test
+POST {{baseUrl}}
+Content-Type: application/json
+{
+  "title": "",
+  "author": "",
+  "genre": "",
+  "publicationYear": 200
+}
+### Get all books
+
+GET {{baseUrl}}/1
+
+### Book not found test
+GET {{baseUrl}}/999
+
+### Search by author
+GET {{baseUrl}}/author/Oscar Wilde
