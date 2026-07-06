@@ -11,10 +11,10 @@ import jakarta.validation.constraints.Max;
 @Getter
 public class BookResponse {
 
-    public Long id;
-    public String title;
-    public String author;
-    public String genre;
-    public int publicationYear;
-    public boolean available;
+    private Long id;
+    private String title;
+    private String author;
+    private String genre;
+    private int publicationYear;
+    private boolean available;
 }
